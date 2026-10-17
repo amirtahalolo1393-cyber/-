@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#090a12">
+<title>موز راش ۲ | Neon Gaming</title>
+<style>
+:root{
+ --bg:#090a12;--surface:#111421;--surface2:#171b2b;
+ --line:#292e43;--yellow:#eaff62;--green:#8affc1;
+ --cyan:#63eaff;--purple:#bd9aff;--pink:#ff8bc7;
+ --text:#f5f6ff;--muted:#929ab5;--danger:#ff7087;
+ --radius:20px;--shadow:0 20px 60px #0004;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+ margin:0;min-height:100vh;background:var(--bg);color:var(--text);
+ font-family:Tahoma,Arial,sans-serif;overflow-x:hidden
+}
+body:before{
+ content:"";position:fixed;inset:0;pointer-events:none;z-index:-2;
+ background:
+ radial-gradient(ellipse at 85% 0%,#a16aff1d,transparent 38%),
+ radial-gradient(ellipse at 0% 55%,#00d9ff12,transparent 36%),
+ radial-gradient(ellipse at 70% 100%,#dfff1010,transparent 35%)
+}
+body:after{
+ content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;
+ opacity:.14;background-image:linear-gradient(#ffffff09 1px,transparent 1px),
+ linear-gradient(90deg,#ffffff09 1px,transparent 1px);
+ background-size:36px 36px;
+ mask-image:linear-gradient(to bottom,#000,transparent 90%)
+}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer;transition:all .2s ease}
+button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{
+ outline:2px solid var(--yellow);outline-offset:3px
+}
+button:disabled{opacity:.45;cursor:not-allowed}
+button:not(:disabled):active{transform:scale(.97)}
+::selection{background:var(--yellow);color:#10120a}
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-thumb{background:#343b55;border-radius:20px}
+.app-header{
+ position:sticky;top:0;z-index:20;display:flex;align-items:center;
+ gap:18px;padding:14px clamp(14px,4vw,48px);
+ background:#090a12d9;border-bottom:1px solid #ffffff10;
+ backdrop-filter:blur(24px)
+}
+.brand{display:flex;align-items:center;gap:12px;font-weight:900;font-size:20px}
+.brand-icon{
+ width:47px;height:47px;display:grid;place-items:center;border-radius:16px;
+ background:linear-gradient(145deg,#f7ffab,#c4e629);
+ color:#151900;font-size:27px;box-shadow:0 0 30px #eaff6227
+}
+.brand small{display:block;font-size:10px;color:var(--muted);font-weight:400;margin-top:5px}
+.header-center{display:flex;align-items:center;gap:8px;margin-right:auto}
+.pill{
+ display:flex;align-items:center;gap:7px;padding:9px 12px;
+ background:#ffffff06;border:1px solid var(--line);border-radius:30px;
+ color:var(--muted);font-size:11px
+}
+.live-dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 12px var(--green)}
+.avatar{
+ width:40px;height:40px;display:grid;place-items:center;border-radius:14px;
+ border:1px solid #ffffff17;background:linear-gradient(145deg,#292e48,#151828)
+}
+.tabs{
+ display:flex;gap:7px;align-items:center;padding:10px clamp(12px,4vw,48px);
+ overflow-x:auto;border-bottom:1px solid #ffffff08;background:#0b0d16
+}
+.tab{
+ display:flex;align-items:center;gap:9px;min-width:120px;max-width:220px;
+ padding:10px 12px;border:1px solid var(--line);border-radius:12px;
+ background:#ffffff04;color:var(--muted);font-size:11px
+}
+.tab.active{color:var(--yellow);border-color:#eaff6240;background:#eaff620b}
+.tab .name{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;cursor:pointer}
+.tab .x{cursor:pointer;font-size:16px}
+.icon-btn{
+ width:39px;height:39px;display:grid;place-items:center;flex-shrink:0;
+ background:#ffffff06;border:1px solid var(--line);border-radius:12px;color:var(--text)
+}
+.icon-btn:hover{border-color:var(--yellow);color:var(--yellow);background:#eaff620b}
+.browserbar{
+ display:flex;align-items:center;gap:8px;padding:12px clamp(12px,4vw,48px);
+ background:#0b0d16;border-bottom:1px solid #ffffff0b
+}
+.address{
+ display:flex;align-items:center;gap:10px;flex:1;min-width:0;
+ background:#121522;border:1px solid #30354b;border-radius:14px;
+ padding:0 14px;transition:.2s
+}
+.address:focus-within{border-color:#eaff6270;box-shadow:0 0 0 3px #eaff6209}
+.address input{
+ width:100%;min-width:0;padding:13px 0;background:transparent;
+ border:0;outline:none;color:var(--text);direction:ltr;text-align:left
+}
+.address input::placeholder{color:#646c85}
+.primary-btn{
+ display:inline-flex;align-items:center;justify-content:center;gap:8px;
+ border:0;border-radius:12px;padding:12px 17px;
+ color:#171b08;background:linear-gradient(135deg,#f1ff9a,#d6ef3c);
+ font-weight:900;box-shadow:0 5px 22px #eaff6211
+}
+.primary-btn:hover{filter:brightness(1.09);box-shadow:0 5px 28px #eaff6230}
+.secondary-btn{
+ display:inline-flex;align-items:center;justify-content:center;gap:7px;
+ background:#ffffff06;border:1px solid var(--line);color:var(--text);
+ border-radius:11px;padding:10px 13px;font-size:11px
+}
+.secondary-btn:hover{border-color:#eaff6266;color:var(--yellow)}
+main{width:min(1200px,100%);margin:auto;padding:28px clamp(12px,3vw,32px) 40px}
+.hero{
+ position:relative;overflow:hidden;padding:clamp(26px,5vw,58px) 20px;
+ text-align:center;border:1px solid #ffffff12;border-radius:28px;
+ background:linear-gradient(125deg,#191d2bdb,#111422df 55%,#1b1730d9);
+ box-shadow:var(--shadow)
+}
+.hero:before{
+ content:"";position:absolute;width:260px;height:260px;right:-120px;top:-150px;
+ background:var(--purple);filter:blur(110px);opacity:.24;pointer-events:none
+}
+.hero:after{
+ content:"";position:absolute;width:240px;height:240px;left:-110px;bottom:-170px;
+ background:var(--yellow);filter:blur(110px);opacity:.12;pointer-events:none
+}
+.hero-content{position:relative;z-index:1}
+.eyebrow{
+ display:inline-flex;align-items:center;gap:8px;padding:8px 13px;
+ border:1px solid #8affc12c;border-radius:30px;color:var(--green);
+ background:#8affc10a;font-size:10px;letter-spacing:1px
+}
+.hero h1{
+ margin:19px 0 12px;font-size:clamp(42px,8vw,78px);
+ letter-spacing:-3px;font-weight:1000;line-height:1.15
+}
+.hero h1 span{
+ color:var(--yellow);text-shadow:0 0 35px #eaff6233
+}
+.hero p{color:var(--muted);font-size:12px;line-height:2}
+.hero-search{
+ display:flex;gap:9px;max-width:660px;margin:26px auto 0;padding:7px;
+ border:1px solid #ffffff15;border-radius:16px;background:#080a11a8;
+ box-shadow:0 10px 35px #0003
+}
+.hero-search input{
+ flex:1;min-width:0;padding:12px;background:transparent;border:0;
+ outline:none;color:white
+}
+.hero-search input::placeholder{color:#737c96}
+.section-title{
+ display:flex;align-items:center;justify-content:space-between;
+ gap:12px;margin:30px 2px 15px
+}
+.section-title h2{font-size:15px;margin:0}
+.section-title p{margin:6px 0 0;color:var(--muted);font-size:10px}
+.section-mark{width:4px;height:30px;border-radius:8px;background:var(--yellow)}
+.section-title-main{display:flex;align-items:center;gap:11px}
+.stats{
+ display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px;margin-top:17px
+}
+.stat{
+ position:relative;overflow:hidden;padding:19px;border:1px solid var(--line);
+ border-radius:18px;background:linear-gradient(145deg,#171b2a,#10131e);
+ transition:transform .25s,border-color .25s
+}
+.stat:hover{transform:translateY(-4px);border-color:#eaff6240}
+.stat-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.stat-icon{
+ width:39px;height:39px;display:grid;place-items:center;border-radius:13px;
+ background:#eaff6210;font-size:19px
+}
+.stat:nth-child(2) .stat-icon{background:#63eaff12}
+.stat:nth-child(3) .stat-icon{background:#bd9aff12}
+.stat:nth-child(4) .stat-icon{background:#8affc112}
+.stat .num{font-size:27px;font-weight:900;margin-top:18px;color:var(--yellow)}
+.stat:nth-child(2) .num{color:var(--cyan)}
+.stat:nth-child(3) .num{color:var(--purple)}
+.stat:nth-child(4) .num{color:var(--green)}
+.stat .label{font-size:10px;color:var(--muted);margin-top:7px}
+.layout{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:15px;margin-top:26px}
+.card{
+ min-width:0;grid-column:span 6;padding:19px;border-radius:20px;
+ border:1px solid var(--line);
+ background:linear-gradient(145deg,#171b29ed,#10131edb);
+ box-shadow:0 12px 35px #00000015;
+ transition:border-color .25s
+}
+.card:hover{border-color:#ffffff22}
+.card.wide{grid-column:span 12}
+.card-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:18px}
+.card-heading{display:flex;align-items:center;gap:11px;min-width:0}
+.card-icon{
+ width:39px;height:39px;flex-shrink:0;display:grid;place-items:center;
+ border:1px solid #ffffff10;border-radius:13px;background:#ffffff07;font-size:18px
+}
+.card h2{font-size:13px;margin:0}
+.muted{font-size:10px;color:var(--muted)}
+.shortcuts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.shortcut{
+ display:flex;flex-direction:column;align-items:center;gap:10px;
+ padding:17px 5px 14px;min-width:0;color:var(--text);text-decoration:none;
+ background:#ffffff04;border:1px solid #ffffff0c;border-radius:15px;
+ transition:transform .22s,border-color .22s,background .22s
+}
+.shortcut:hover{transform:translateY(-4px);border-color:#eaff6250;background:#eaff6208}
+.shortcut .emoji{
+ width:47px;height:47px;display:grid;place-items:center;border-radius:15px;
+ background:linear-gradient(145deg,#242a3e,#151929);font-size:24px
+}
+.shortcut b{font-size:11px}
+.shortcut .domain{
+ max-width:100%;font-size:9px;color:var(--muted);direction:ltr;
+ overflow-wrap:anywhere;text-align:center
+}
+.field{
+ width:100%;min-width:0;background:#0b0e18;color:var(--text);
+ border:1px solid #2b3045;border-radius:11px;padding:11px;
+ outline:none;transition:border-color .2s
+}
+.field:focus{border-color:#eaff6266}
+.field::placeholder{color:#69728c}
+.row{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.row .field{flex:1}
+.display{
+ text-align:center;padding:23px 10px;margin-bottom:13px;
+ border:1px solid #ffffff0e;border-radius:16px;
+ background:radial-gradient(ellipse at top,#242940,#0c0f19 75%)
+}
+.clock{font-size:clamp(30px,4vw,42px);font-weight:900;color:var(--yellow);direction:ltr}
+.date{font-size:11px;color:var(--muted);margin-top:10px}
+.status-line{display:flex;align-items:center;gap:8px;font-size:10px;color:var(--muted);margin-top:15px}
+.status-line .live-dot{flex-shrink:0}
+.calc-screen{
+ width:100%;padding:20px 15px;background:#080b12;color:var(--green);
+ border:1px solid #292f43;border-radius:13px;text-align:left;
+ direction:ltr;font-size:28px;margin-bottom:12px;min-height:70px;
+ overflow:auto;font-family:Consolas,monospace
+}
+.calc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.calc-grid button{
+ padding:14px 3px;border:1px solid #ffffff0b;border-radius:11px;
+ background:#1a1f30;color:white
+}
+.calc-grid button:hover{border-color:#eaff6266;background:#252b3f}
+.calc-grid .op{color:var(--yellow)}
+.calc-grid .equal{background:var(--yellow);color:#111500;font-weight:900}
+.timer{
+ text-align:center;font-size:clamp(38px,6vw,53px);font-weight:900;
+ color:var(--yellow);direction:ltr;padding:22px 0;
+ font-variant-numeric:tabular-nums
+}
+.timer-track{height:5px;background:#292e40;border-radius:9px;overflow:hidden;margin-bottom:18px}
+.timer-track div{height:100%;width:100%;background:linear-gradient(90deg,var(--yellow),var(--green));transition:width .2s}
+.game{
+ padding:13px;border:1px solid #ffffff10;border-radius:16px;background:#0b0e18
+}
+.gamemeta{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:11px;color:var(--muted)}
+.gamemeta b{color:var(--yellow)}
+.gamearea{
+ position:relative;height:210px;overflow:hidden;margin:14px 0;
+ border:1px solid #282e43;border-radius:13px;
+ background:radial-gradient(ellipse at 50% 40%,#202941,#0a0c15 75%)
+}
+.gamearea:before{
+ content:"";position:absolute;inset:0;pointer-events:none;opacity:.35;
+ background-image:radial-gradient(#8a95b8 1px,transparent 1px);background-size:24px 24px
+}
+.game-hint{position:absolute;inset:0;display:grid;place-content:center;gap:10px;color:var(--muted);font-size:11px}
+.banana{
+ position:absolute;z-index:2;font-size:38px;border:0;background:transparent;
+ transform:translate(-50%,-50%);filter:drop-shadow(0 0 13px #eaff0066);
+ animation:bananaFloat 1.2s ease-in-out infinite alternate
+}
+@keyframes bananaFloat{to{transform:translate(-50%,-60%) rotate(-10deg)}}
+.list{display:grid;gap:9px}
+.entry{
+ display:flex;align-items:center;gap:10px;min-width:0;padding:12px;
+ border:1px solid #ffffff0c;border-radius:13px;background:#ffffff04;font-size:11px
+}
+.entrytext{flex:1;min-width:0;overflow-wrap:anywhere}
+.entry a{color:var(--cyan);text-decoration:none}
+.entry a:hover{text-decoration:underline}
+.entry .sub{font-size:9px;color:var(--muted);margin-top:6px;direction:ltr;text-align:right}
+.entry .btn2{flex-shrink:0}
+.empty{padding:23px 10px;text-align:center;color:var(--muted);font-size:11px}
+.scroll{max-height:310px;overflow:auto}
+textarea.field{resize:vertical;line-height:2}
+.notes-hint{margin-top:10px;font-size:10px;color:var(--muted)}
+footer{padding:35px 0 5px;text-align:center;color:#656e87;font-size:10px}
+footer span{color:var(--yellow)}
+#toast{
+ display:none;position:fixed;z-index:100;bottom:22px;left:50%;
+ transform:translateX(-50%);max-width:90vw;padding:13px 19px;
+ background:#191e2e;border:1px solid #eaff6266;border-radius:14px;
+ font-size:12px;box-shadow:0 15px 45px #0007;text-align:center
+}
+@media(max-width:760px){
+ .app-header{padding:12px 14px}
+ .header-center .pill:first-child{display:none}
+ .brand{font-size:17px}
+ .brand-icon{width:42px;height:42px}
+ .browserbar{padding:10px 12px;gap:5px}
+ .browserbar .icon-btn{width:34px}
+ .browserbar .primary-btn{padding:11px}
+ main{padding:18px 12px 30px}
+ .hero{border-radius:22px}
+ .hero h1{letter-spacing:-1px}
+ .stats{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+ .stat{padding:15px}
+ .stat .num{font-size:24px}
+ .layout{gap:12px}
+ .card{grid-column:span 12;padding:15px}
+ .card.wide{grid-column:span 12}
+}
+@media(max-width:400px){
+ .header-center{gap:5px}
+ .header-center .pill{padding:8px}
+ .shortcuts{gap:7px}
+ .shortcut{padding:13px 3px}
+ .shortcut .emoji{width:40px;height:40px;font-size:21px}
+ .address{padding:0 8px}
+ .browserbar{gap:4px}
+ .browserbar .icon-btn{width:31px;height:35px}
+}
+@media(prefers-reduced-motion:reduce){
+ *,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+}
+</style>
+</head>
+<body>
+<header class="app-header">
+ <div class="brand">
+  <div class="brand-icon">🍌</div>
+  <div>موز راش<small></small></div>
+ </div>
+ <div class="header-center">
+  <div class="pill"><span class="live-dot"></span> سیستم آماده است</div>
+  <div class="pill">موز راش</div>
+ </div>
+ <div class="avatar" title="پروفایل">🍌</div>
+</header>
+
+<div class="tabs" id="tabs">
+ <button class="icon-btn" id="newTab" title="تب جدید">＋</button>
+</div>
+
+<div class="browserbar">
+ <button class="icon-btn" id="back" title="بازگشت">←</button>
+ <button class="icon-btn" id="forward" title="جلو">→</button>
+ <button class="icon-btn" id="reload" title="بارگذاری مجدد">↻</button>
+ <button class="icon-btn" id="home" title="خانه">⌂</button>
+ <form class="address" id="addressForm">
+  <span>⌕</span><input id="address" placeholder="آدرس سایت یا عبارت جست‌وجو..." autocomplete="off">
+ </form>
+ <button class="primary-btn" id="go">برو ↗</button>
+ <button class="icon-btn" id="bookmarkCurrent" title="ذخیره بوکمارک">☆</button>
+</div>
+
+<main id="dashboard">
+ <section class="hero">
+  <div class="hero-content">
+   <div class="eyebrow"><span class="live-dot"></span>مرورگر موز راش</div>
+   <h1>موز <span>راش</span> 🍌</h1>
+   <p>داشبورد گیمینگ شخصی تو؛ سریع، جذاب و همیشه آماده.</p>
+   <form class="hero-search" id="searchForm">
+    <input id="search" placeholder="چی می‌خوای پیدا کنی؟ آدرس یا عبارت جست‌وجو..." autocomplete="off">
+    <button class="primary-btn">جست‌وجو ⚡</button>
+   </form>
+  </div>
+ </section>
+
+ <section class="stats">
+  <div class="stat"><div class="stat-top"><span class="muted">فعالیت‌ها</span><span class="stat-icon">↗</span></div><div class="num" id="statVisits">۰</div><div class="label">بازدیدهای ثبت‌شده</div></div>
+  <div class="stat"><div class="stat-top"><span class="muted">مجموعه تو</span><span class="stat-icon">☆</span></div><div class="num" id="statMarks">۰</div><div class="label">بوکمارک‌های ذخیره‌شده</div></div>
+  <div class="stat"><div class="stat-top"><span class="muted">دسترسی سریع</span><span class="stat-icon">🍌</span></div><div class="num" id="statShortcuts">۰</div><div class="label">میانبرهای شخصی</div></div>
+  <div class="stat"><div class="stat-top"><span class="muted">دستاوردها</span><span class="stat-icon">🏆</span></div><div class="num" id="statPoints">۰</div><div class="label">امتیازهای موزی</div></div>
+ </section>
+
+ <div class="section-title">
+  <div class="section-title-main"><span class="section-mark"></span><div><h2>فضای کار تو</h2><p>ابزارهای روزمره در یک نگاه</p></div></div>
+ </div>
+
+ <div class="layout">
+  <section class="card">
+   <div class="card-head">
+    <div class="card-heading"><div class="card-icon">⚡</div><div><h2>دسترسی سریع</h2><div class="muted" style="margin-top:5px">سایت‌های مورد علاقه‌ات</div></div></div>
+    <button class="secondary-btn" id="addShortcut">＋ افزودن سایت</button>
+   </div>
+   <div class="shortcuts" id="shortcuts"></div>
+  </section>
+
+  <section class="card">
+   <div class="card-head">
+    <div class="card-heading"><div class="card-icon">🎮</div><div><h2>مرکز کنترل</h2><div class="muted" style="margin-top:5px">زمان و تنظیمات</div></div></div>
+    <span class="pill"><span class="live-dot"></span> آنلاین محلی</span>
+   </div>
+   <div class="display"><div class="clock" id="clock">۰۰:۰۰:۰۰</div><div class="date" id="date"></div></div>
+   <div class="row">
+    <button class="secondary-btn" id="soundToggle">🔇 صدای کلیک: خاموش</button>
+    <button class="secondary-btn" id="themeToggle">🎨 تغییر رنگ</button>
+   </div>
+   <div class="status-line"><span class="live-dot"></span> تنظیمات و امتیازها روی همین دستگاه ذخیره می‌شوند.</div>
+  </section>
+
+  <section class="card">
+   <div class="card-head"><div class="card-heading"><div class="card-icon">🧮</div><div><h2>ماشین‌حساب</h2><div class="muted" style="margin-top:5px">محاسبات سریع</div></div></div></div>
+   <div class="calc-screen" id="calcScreen">0</div>
+   <div class="calc-grid" id="calcGrid">
+    <button data-key="C" class="op">پاک</button><button data-key="(">(</button><button data-key=")">)</button><button data-key="/" class="op">÷</button>
+    <button data-key="7">۷</button><button data-key="8">۸</button><button data-key="9">۹</button><button data-key="*" class="op">×</button>
+    <button data-key="4">۴</button><button data-key="5">۵</button><button data-key="6">۶</button><button data-key="-" class="op">−</button>
+    <button data-key="1">۱</button><button data-key="2">۲</button><button data-key="3">۳</button><button data-key="+" class="op">+</button>
+    <button data-key="0">۰</button><button data-key=".">.</button><button data-key="back">⌫</button><button data-key="=" class="equal">=</button>
+   </div>
+  </section>
+
+  <section class="card">
+   <div class="card-head"><div class="card-heading"><div class="card-icon">⏱️</div><div><h2>تایمر تمرکز</h2><div class="muted" style="margin-top:5px">زمانت رو مدیریت کن</div></div></div></div>
+   <div class="timer" id="timerDisplay">۰۵:۰۰</div>
+   <div class="timer-track"><div id="timerProgress"></div></div>
+   <div class="row">
+    <input class="field" id="timerMinutes" type="number" min="0" max="999" value="5" aria-label="دقیقه">
+    <input class="field" id="timerSeconds" type="number" min="0" max="59" value="0" aria-label="ثانیه">
+   </div>
+   <div class="row" style="margin-top:12px">
+    <button class="primary-btn" id="timerStart">▶ شروع</button>
+    <button class="secondary-btn" id="timerPause">Ⅱ مکث</button>
+    <button class="secondary-btn" id="timerReset">↺ ریست</button>
+   </div>
+   <div class="status-line" id="timerStatus">● آماده شروع</div>
+  </section>
+
+  <section class="card">
+   <div class="card-head"><div class="card-heading"><div class="card-icon">🍌</div><div><h2>چالش موزگیر</h2><div class="muted" style="margin-top:5px">ببین چندتا موز می‌گیری!</div></div></div><span class="pill">🏆 <b id="bestScore">۰</b></span></div>
+   <div class="game">
+    <div class="gamemeta"><span>امتیاز: <b id="gameScore">۰</b></span><span>زمان باقی‌مانده: <b id="gameTime">۲۰</b> ثانیه</span></div>
+    <div class="gamearea" id="gameArea">
+     <div class="game-hint" id="gameHint"><span style="font-size:30px"></span><span>آماده‌ای؟ بازی رو شروع کن!</span></div>
+     <button class="banana" id="banana" hidden aria-label="گرفتن موز">🍌</button>
+    </div>
+    <button class="primary-btn" id="gameStart" style="width:100%">🎮 شروع بازی</button>
+   </div>
+  </section>
+
+  <section class="card">
+   <div class="card-head"><div class="card-heading"><div class="card-icon">☆</div><div><h2>بوکمارک‌ها</h2><div class="muted" style="margin-top:5px">سایت‌هایی که نگه داشته‌ای</div></div></div><span class="pill" id="bookmarkCount">۰ سایت</span></div>
+   <input class="field" id="bookmarkSearch" placeholder="⌕ جست‌وجو در بوکمارک‌ها..." style="margin-bottom:12px">
+   <div class="list scroll" id="bookmarks"></div>
+  </section>
+
+  <section class="card">
+   <div class="card-head"><div class="card-heading"><div class="card-icon">◷</div><div><h2>تاریخچه وب</h2><div class="muted" style="margin-top:5px">آخرین آدرس‌های ثبت‌شده</div></div></div><button class="secondary-btn" id="clearHistory">پاک‌کردن</button></div>
+   <div class="row" style="margin-bottom:12px">
+    <input class="field" id="historySearch" placeholder="جست‌وجو در تاریخچه...">
+    <select class="field" id="historyLimit" style="max-width:115px"><option value="10">۱۰ مورد</option><option value="25" selected>۲۵ مورد</option><option value="50">۵۰ مورد</option></select>
+   </div>
+   <div class="list scroll" id="history"></div>
+  </section>
+
+  <section class="card wide">
+   <div class="card-head"><div class="card-heading"><div class="card-icon">📝</div><div><h2>دفترچه یادداشت</h2><div class="muted" style="margin-top:5px">ایده‌هایت را همین‌جا ثبت کن</div></div></div><span class="pill">ذخیره خودکار ✓</span></div>
+   <textarea class="field" id="notes" rows="5" placeholder="اینجا بنویس... ایده، برنامه، لینک یا هر چیزی که می‌خوای یادت بمونه."></textarea>
+   <div class="notes-hint">یادداشت‌ها به‌صورت خودکار روی همین دستگاه ذخیره می‌شوند.</div>
+  </section>
+ </div>
+
+ <footer> <span> </span></footer>
+</main>
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(()=>{
+"use strict";
+const $=id=>document.getElementById(id);
+const KEY="moz_rush_v2_data";
+const defaultSites=[
+ {name:"گوگل",url:"https://www.google.com",icon:"🔎"},
+ {name:"یوتیوب",url:"https://www.youtube.com",icon:"▶️"},
+ {name:"گیت‌هاب",url:"https://github.com",icon:"💻"},
+ {name:"ویکی‌پدیا",url:"https://www.wikipedia.org",icon:"📚"},
+ {name:"توییچ",url:"https://www.twitch.tv",icon:"🎮"},
+ {name:"دیسکورد",url:"https://discord.com/app",icon:"💬"}
+];
+let state={bookmarks:[],history:[],shortcuts:defaultSites,notes:"",points:0,best:0,sound:false,theme:0};
+try{
+ const saved=JSON.parse(localStorage.getItem(KEY)||"null");
+ if(saved&&typeof saved==="object")state={...state,...saved};
+}catch(e){}
+if(!Array.isArray(state.bookmarks))state.bookmarks=[];
+if(!Array.isArray(state.history))state.history=[];
+if(!Array.isArray(state.shortcuts))state.shortcuts=defaultSites;
+let tabs=[{url:"",title:"صفحه اصلی"}],activeTab=0;
+let toastTimeout,calcExpr="",calcDone=false;
+let timerRemaining=300,timerInterval=null,timerEnd=0,timerInitial=300;
+let gameInterval=null,gameEnd=0,gameScore=0,gameActive=false,audioContext=null;
+
+function save(){try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){toast("ذخیره‌سازی در دسترس نیست.")}}
+function toast(msg){
+ $("toast").textContent=msg;$("toast").style.display="block";
+ clearTimeout(toastTimeout);toastTimeout=setTimeout(()=>$("toast").style.display="none",2400);
+}
+function digits(n){return String(n).replace(/\d/g,d=>"۰۱۲۳۴۵۶۷۸۹"[+d])}
+function urlSafe(s){
+ try{const u=new URL(s);return ["https:","http:"].includes(u.protocol)?u.href:null}catch(e){return null}
+}
+function makeUrl(value){
+ const s=value.trim();if(!s)return null;
+ const direct=urlSafe(s);if(direct)return direct;
+ if(!/\s/.test(s)&&/^(localhost|[\w-]+(\.[\w-]+)+)(:\d+)?(\/.*)?$/i.test(s))
+  return urlSafe("https://"+s);
+ return "https://www.google.com/search?q="+encodeURIComponent(s);
+}
+function navigate(value){
+ const url=makeUrl(value);if(!url)return toast("آدرس یا عبارت جست‌وجو رو وارد کن.");
+ const parsed=new URL(url);
+ state.history.unshift({url,time:Date.now()});
+ state.history=state.history.slice(0,500);
+ tabs[activeTab]={url,title:parsed.hostname};
+ save();renderHistory();renderStats();renderTabs();
+ $("address").value=url;
+ window.location.assign(url);
+}
+function playClick(){
+ if(!state.sound)return;
+ try{
+  audioContext=audioContext||new(window.AudioContext||window.webkitAudioContext)();
+  if(audioContext.state==="suspended")audioContext.resume();
+  const osc=audioContext.createOscillator(),gain=audioContext.createGain();
+  osc.frequency.value=620;gain.gain.value=.025;
+  osc.connect(gain);gain.connect(audioContext.destination);
+  osc.start();osc.stop(audioContext.currentTime+.045);
+ }catch(e){}
+}
+document.addEventListener("click",e=>{if(e.target.closest("button"))playClick()});
+
+function renderStats(){
+ $("statVisits").textContent=digits(state.history.length);
+ $("statMarks").textContent=digits(state.bookmarks.length);
+ $("statShortcuts").textContent=digits(state.shortcuts.length);
+ $("statPoints").textContent=digits(state.points);
+ $("bestScore").textContent=digits(state.best);
+}
+function renderShortcuts(){
+ const root=$("shortcuts");root.replaceChildren();
+ state.shortcuts.forEach(site=>{
+  const a=document.createElement("a");a.className="shortcut";a.href=site.url;
+  const emoji=document.createElement("span");emoji.className="emoji";emoji.textContent=site.icon||"🌐";
+  const name=document.createElement("b");name.textContent=site.name;
+  const domain=document.createElement("span");domain.className="domain";
+  domain.textContent=site.url.replace(/^https?:\/\//,"");
+  a.append(emoji,name,domain);
+  a.addEventListener("click",e=>{e.preventDefault();navigate(site.url)});
+  root.append(a);
+ });
+ renderStats();
+}
+function renderBookmarks(){
+ const root=$("bookmarks");root.replaceChildren();
+ const q=$("bookmarkSearch").value.trim().toLowerCase();
+ const items=state.bookmarks.filter(x=>(x.title+" "+x.url).toLowerCase().includes(q));
+ $("bookmarkCount").textContent=digits(items.length)+" سایت";
+ if(!items.length){root.innerHTML='<div class="empty">☆<br><br>هنوز بوکمارکی پیدا نشد.</div>';return}
+ items.forEach(item=>{
+  const row=document.createElement("div");row.className="entry";
+  const text=document.createElement("div");text.className="entrytext";
+  const link=document.createElement("a");link.href=item.url;link.textContent="☆ "+item.title;
+  link.addEventListener("click",e=>{e.preventDefault();navigate(item.url)});
+  const sub=document.createElement("div");sub.className="sub";sub.textContent=item.url;
+  text.append(link,sub);
+  const del=document.createElement("button");del.className="secondary-btn";del.textContent="حذف";
+  del.addEventListener("click",()=>{
+   state.bookmarks=state.bookmarks.filter(x=>x.url!==item.url);
+   save();renderBookmarks();renderStats();
+  });
+  row.append(text,del);root.append(row);
+ });
+}
+function renderHistory(){
+ const root=$("history");root.replaceChildren();
+ const q=$("historySearch").value.trim().toLowerCase();
+ const limit=Number($("historyLimit").value)||25;
+ const items=state.history.filter(x=>x.url.toLowerCase().includes(q)).slice(0,limit);
+ if(!items.length){root.innerHTML='<div class="empty">◷<br><br>موردی برای نمایش وجود ندارد.</div>';return}
+ items.forEach(item=>{
+  const row=document.createElement("div");row.className="entry";
+  const text=document.createElement("div");text.className="entrytext";
+  const a=document.createElement("a");a.href=item.url;a.textContent=item.url;
+  a.addEventListener("click",e=>{e.preventDefault();navigate(item.url)});
+  const sub=document.createElement("div");sub.className="sub";
+  sub.textContent=new Date(item.time).toLocaleString("fa-IR");
+  text.append(a,sub);
+  const del=document.createElement("button");del.className="secondary-btn";del.textContent="×";
+  del.title="حذف این مورد";
+  del.addEventListener("click",()=>{
+   state.history=state.history.filter(x=>x!==item);
+   save();renderHistory();renderStats();
+  });
+  row.append(text,del);root.append(row);
+ });
+}
+function renderTabs(){
+ $("tabs").querySelectorAll(".tab").forEach(x=>x.remove());
+ tabs.forEach((tab,i)=>{
+  const el=document.createElement("div");el.className="tab"+(i===activeTab?" active":"");
+  const name=document.createElement("span");name.className="name";name.textContent=tab.title;
+  name.addEventListener("click",()=>{
+   activeTab=i;renderTabs();$("address").value=tab.url;
+   if(tab.url)navigate(tab.url);
+   else $("search").focus();
+  });
+  const close=document.createElement("span");close.className="x";close.textContent="×";
+  close.title="بستن تب";
+  close.addEventListener("click",()=>{
+   tabs.splice(i,1);if(!tabs.length)tabs=[{url:"",title:"صفحه اصلی"}];
+   if(activeTab>=tabs.length)activeTab=tabs.length-1;
+   else if(i<activeTab)activeTab--;
+   renderTabs();$("address").value=tabs[activeTab].url;
+  });
+  el.append(name,close);$("tabs").insertBefore(el,$("newTab"));
+ });
+}
+$("addressForm").addEventListener("submit",e=>{e.preventDefault();navigate($("address").value)});
+$("go").addEventListener("click",()=>navigate($("address").value));
+$("searchForm").addEventListener("submit",e=>{e.preventDefault();navigate($("search").value)});
+$("home").addEventListener("click",()=>{$("dashboard").scrollIntoView({behavior:"smooth"});$("search").focus()});
+$("back").addEventListener("click",()=>history.back());
+$("forward").addEventListener("click",()=>history.forward());
+$("reload").addEventListener("click",()=>location.reload());
+$("newTab").addEventListener("click",()=>{
+ tabs.push({url:"",title:"تب جدید"});activeTab=tabs.length-1;
+ renderTabs();$("address").value="";$("address").focus();
+ toast("تب جدید رابط کاربری ساخته شد.");
+});
+$("bookmarkCurrent").addEventListener("click",()=>{
+ const url=makeUrl($("address").value);
+ if(!url)return toast("اول یک آدرس وارد کن.");
+ if(state.bookmarks.some(x=>x.url===url))return toast("این سایت قبلاً ذخیره شده.");
+ state.bookmarks.unshift({url,title:new URL(url).hostname});
+ save();renderBookmarks();renderStats();toast("بوکمارک ذخیره شد ⭐");
+});
+$("addShortcut").addEventListener("click",()=>{
+ const name=prompt("نام سایت:");if(!name||!name.trim())return;
+ const raw=prompt("آدرس سایت:");if(!raw)return;
+ const url=makeUrl(raw);if(!url)return toast("آدرس نامعتبر است.");
+ state.shortcuts.push({name:name.trim(),url,icon:"🌐"});
+ save();renderShortcuts();toast("میانبر اضافه شد.");
+});
+$("bookmarkSearch").addEventListener("input",renderBookmarks);
+$("historySearch").addEventListener("input",renderHistory);
+$("historyLimit").addEventListener("change",renderHistory);
+$("clearHistory").addEventListener("click",()=>{
+ if(!confirm("تمام تاریخچه پاک شود؟"))return;
+ state.history=[];save();renderHistory();renderStats();
+});
+$("notes").value=state.notes||"";
+$("notes").addEventListener("input",()=>{state.notes=$("notes").value;save()});
+
+function updateClock(){
+ const now=new Date();
+ $("clock").textContent=now.toLocaleTimeString("fa-IR",{hour12:false});
+ $("date").textContent=now.toLocaleDateString("fa-IR",{weekday:"long",year:"numeric",month:"long",day:"numeric"});
+}
+updateClock();setInterval(updateClock,1000);
+
+$("soundToggle").textContent=state.sound?"🔊 صدای کلیک: روشن":"🔇 صدای کلیک: خاموش";
+$("soundToggle").addEventListener("click",()=>{
+ state.sound=!state.sound;save();
+ $("soundToggle").textContent=state.sound?"🔊 صدای کلیک: روشن":"🔇 صدای کلیک: خاموش";
+});
+const themes=[
+ {yellow:"#eaff62",green:"#8affc1",cyan:"#63eaff",purple:"#bd9aff"},
+ {yellow:"#63eaff",green:"#71ffea",cyan:"#bd9aff",purple:"#ff8bc7"},
+ {yellow:"#ff8bc7",green:"#ffb2e0",cyan:"#7b9cff",purple:"#ff8bc7"}
+];
+function applyTheme(){
+ const t=themes[state.theme%themes.length];
+ Object.keys(t).forEach(k=>document.documentElement.style.setProperty("--"+k,t[k]));
+}
+applyTheme();
+$("themeToggle").addEventListener("click",()=>{
+ state.theme=(state.theme+1)%themes.length;applyTheme();save();toast("تم رنگی جدید فعال شد 🎨");
+});
+
+/* Calculator */
+function calculate(){
+ if(!calcExpr)return;
+ if(!/^[0-9+\-*/().\s]+$/.test(calcExpr)){
+  calcExpr="";$("calcScreen").textContent="خطا";return;
+ }
+ try{
+  const result=Function('"use strict";return ('+calcExpr+')')();
+  if(typeof result!=="number"||!Number.isFinite(result))throw Error();
+  calcExpr=String(Number(result.toPrecision(12)));
+  $("calcScreen").textContent=calcExpr;calcDone=true;
+ }catch(e){$("calcScreen").textContent="خطا";calcExpr="";calcDone=true}
+}
+$("calcGrid").addEventListener("click",e=>{
+ const b=e.target.closest("button[data-key]");if(!b)return;
+ const key=b.dataset.key;
+ if(key==="C"){calcExpr="";calcDone=false;$("calcScreen").textContent="0";return}
+ if(key==="back"){calcExpr=calcExpr.slice(0,-1);calcDone=false}
+ else if(key==="="){calculate();return}
+ else{
+  if(calcDone&&!"+-*/".includes(key))calcExpr="";
+  calcDone=false;
+  if(/[0-9.]/.test(key)&&key.length===1)calcExpr+=key;
+  else if("+-*/()".includes(key))calcExpr+=key;
+ }
+ $("calcScreen").textContent=calcExpr||"0";
+});
+
+/* Timer */
+function showTimer(){
+ const s=Math.max(0,Math.ceil(timerRemaining));
+ $("timerDisplay").textContent=digits(String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0"));
+ const ratio=timerInitial>0?Math.min(100,Math.max(0,timerRemaining/timerInitial*100)):0;
+ $("timerProgress").style.width=ratio+"%";
+}
+function stopTimer(){clearInterval(timerInterval);timerInterval=null}
+function readTimer(){
+ const m=Math.min(999,Math.max(0,Number($("timerMinutes").value)||0));
+ const s=Math.min(59,Math.max(0,Number($("timerSeconds").value)||0));
+ return m*60+s;
+}
+$("timerStart").addEventListener("click",()=>{
+ if(timerInterval)return;
+ if(timerRemaining<=0){timerRemaining=readTimer();timerInitial=timerRemaining}
+ if(timerRemaining<=0)return toast("زمانی بیشتر از صفر تنظیم کن.");
+ if(timerInitial<timerRemaining)timerInitial=timerRemaining;
+ timerEnd=Date.now()+timerRemaining*1000;
+ $("timerStatus").textContent="● تایمر در حال اجراست";
+ timerInterval=setInterval(()=>{
+  timerRemaining=Math.max(0,(timerEnd-Date.now())/1000);showTimer();
+  if(timerRemaining<=0){
+   stopTimer();timerRemaining=0;showTimer();
+   $("timerStatus").textContent="⏰ زمان به پایان رسید";
+   toast("⏰ تایمر تمام شد!");
+  }
+ },200);
+});
+$("timerPause").addEventListener("click",()=>{
+ if(!timerInterval)return;
+ timerRemaining=Math.max(0,(timerEnd-Date.now())/1000);
+ stopTimer();showTimer();$("timerStatus").textContent="Ⅱ تایمر متوقف شد";
+});
+$("timerReset").addEventListener("click",()=>{
+ stopTimer();timerRemaining=readTimer();timerInitial=timerRemaining;showTimer();
+ $("timerStatus").textContent="● آماده شروع";
+});
+["timerMinutes","timerSeconds"].forEach(id=>$(id).addEventListener("change",()=>{
+ if(!timerInterval){timerRemaining=readTimer();timerInitial=timerRemaining;showTimer()}
+}));
+showTimer();
+
+/* Banana catcher */
+function placeBanana(){
+ const area=$("gameArea"),banana=$("banana");
+ const maxX=Math.max(40,area.clientWidth-35),maxY=Math.max(40,area.clientHeight-35);
+ banana.style.left=(25+Math.random()*Math.max(1,maxX-25))+"px";
+ banana.style.top=(25+Math.random()*Math.max(1,maxY-25))+"px";
+}
+function endGame(){
+ clearInterval(gameInterval);gameInterval=null;gameActive=false;
+ $("banana").hidden=true;$("gameHint").hidden=false;
+ $("gameHint").innerHTML="";
+ const emoji=document.createElement("span");emoji.style.fontSize="30px";emoji.textContent="🏆";
+ const msg=document.createElement("span");msg.textContent="پایان بازی! امتیازت: "+digits(gameScore)+" 🍌";
+ $("gameHint").append(emoji,msg);
+ $("gameStart").textContent="🔄 بازی دوباره";$("gameStart").disabled=false;
+ state.points+=gameScore;state.best=Math.max(state.best,gameScore);
+ save();renderStats();
+}
+$("gameStart").addEventListener("click",()=>{
+ if(gameActive)return;
+ gameScore=0;gameActive=true;gameEnd=Date.now()+20000;
+ $("gameScore").textContent="۰";$("gameTime").textContent="۲۰";
+ $("gameHint").hidden=true;$("banana").hidden=false;
+ $("gameStart").disabled=true;placeBanana();
+ gameInterval=setInterval(()=>{
+  const remaining=Math.max(0,Math.ceil((gameEnd-Date.now())/1000));
+  $("gameTime").textContent=digits(remaining);
+  if(remaining<=0)endGame();
+ },100);
+});
+$("banana").addEventListener("click",()=>{
+ if(!gameActive)return;
+ gameScore++;$("gameScore").textContent=digits(gameScore);placeBanana();
+});
+
+renderShortcuts();renderBookmarks();renderHistory();renderStats();renderTabs();
+})();
+</script>
+</body>
+  </html>
